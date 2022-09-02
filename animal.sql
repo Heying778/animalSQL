@@ -115,10 +115,23 @@ WHERE staff.name = 'Allen'
 ;
 ------------------------------------------------
 
--- * The number of different keepers who have been assigned to work in a given enclosure
+-- * The number of different keepers who have been assigned 
+-- to work in a given enclosure
 ------------------------------------------------
+SELECT COUNT(DISTINCT employees.name) FROM employees
+INNER JOIN assignments
+ON employees.id = assignments.employee_id
+WHERE assignments.enclosure_id = 1;
 ------------------------------------------------
 
--- * The names of the other animals sharing an enclosure with a given animal (eg. find the names of all the animals sharing the big cat field with Tony)
+-- * The names of the other animals sharing an enclosure with 
+-- a given animal (eg. find the names of all the animals sharing 
+-- the big cat field with Tony)
 ------------------------------------------------
+SELECT roommates.name FROM animals
+INNER JOIN enclosures
+ON animals.enclosure_id = enclosures.id
+INNER JOIN animals AS roommates
+ON enclosures.id = roommates.enclosure_id
+WHERE animals.id = 1;
 ------------------------------------------------
